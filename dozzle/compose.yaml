@@ -1,0 +1,8 @@
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dozzle
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 3030:8080

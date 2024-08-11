@@ -1,0 +1,13 @@
+services:
+  #Defining wordpress service
+  wordpress:
+    image: wordpress:latest #use latest wordpress image from docker hub
+    restart: always  #this ensures when server reboots container restarts
+    container_name: wordpress
+    ports:
+      - "8000:80"    #expose container internal port 80 to host(raspberry pi) pot 8080
+    environment:
+      WORDPRESS_DB_HOST: 172.20.0.1 #mysql db hostname
+      WORDPRESS_DB_NAME: wordpress #mysql database to be used for wordpress database
+      WORDPRESS_DB_USER: xxxxxxxxxxx  #should be same as MYSQL_USER
+      WORDPRESS_DB_PASSWORD: xxxxxxxxxx #should be same as MYSQL_PASSWORD
