@@ -1,0 +1,54 @@
+services:
+  adguardhome-sync:
+    image: ghcr.io/bakito/adguardhome-sync
+    container_name: adguardhomesync
+    command: run
+    environment:
+      LOG_LEVEL: "info"
+      ORIGIN_URL: "http://192.168.1.2"
+      # ORIGIN_WEB_URL: "https://some-other.url" # used in the web interface (default: <origin-url>
+
+      ORIGIN_USERNAME: "username"
+      ORIGIN_PASSWORD: "password"
+      REPLICA1_URL: "http://192.168.1.30:31080"
+      REPLICA1_USERNAME: "username"
+      REPLICA1_PASSWORD: "password"
+      #REPLICA2_URL: "http://192.168.1.4"
+      #REPLICA2_USERNAME: "username"
+      #REPLICA2_PASSWORD: "password"
+      #REPLICA2_API_PATH: "/some/path/control"
+      # REPLICA2_WEB_URL: "https://some-other.url" # used in the web interface (default: <replica-url>
+      # REPLICA2_AUTO_SETUP: true # if true, AdGuardHome is automatically initialized.
+      # REPLICA2_INTERFACE_NAME: 'ens18' # use custom dhcp interface name
+      # REPLICA2_DHCP_SERVER_ENABLED: true/false (optional) enables/disables the dhcp server on the replica
+      CRON: "0 */2 * * *" # run every 10 minutes
+      RUN_ON_START: "true"
+      # CONTINUE_ON_ERROR: false # If enabled, the synchronisation task will not fail on single errors, but will log the errors and continue
+
+      # Configure the sync API server, disabled if api port is 0
+      API_PORT: 8080
+      # API_DARK_MODE: "true"
+      # API_USERNAME: admin
+      # API_PASSWORD: secret
+      # the directory of the provided tls certs
+      # API_TLS_CERT_DIR: /path/to/certs
+      # the name of the cert file (default: tls.crt)
+      # API_TLS_CERT_NAME: foo.crt
+      # the name of the key file (default: tls.key)
+      # API_TLS_KEY_NAME: bar.key
+
+      # Configure sync features; by default all features are enabled.
+      # FEATURES_GENERAL_SETTINGS: "true"
+      # FEATURES_QUERY_LOG_CONFIG: "true"
+      # FEATURES_STATS_CONFIG: "true"
+      # FEATURES_CLIENT_SETTINGS: "true"
+      # FEATURES_SERVICES: "true"
+      # FEATURES_FILTERS: "true"
+      # FEATURES_DHCP_SERVER_CONFIG: "true"
+      # FEATURES_DHCP_STATIC_LEASES: "true"
+      # FEATURES_DNS_SERVER_CONFIG: "true"
+      # FEATURES_DNS_ACCESS_LISTS: "true"
+      # FEATURES_DNS_REWRITES: "true"
+    ports:
+      - 30080:8080
+    restart: unless-stopped
