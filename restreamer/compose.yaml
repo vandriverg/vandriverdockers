@@ -1,0 +1,14 @@
+services:
+    restreamer:
+        container_name: restreamer
+        volumes:
+            - './config:/core/config'
+            - './data:/core/data'
+        ports:
+            - '38080:8080'
+            - '8181:8181'
+            - '31001:1935'
+            - '1936:1936'
+            - '6000:6000/udp'
+        restart: always
+        image: 'datarhei/restreamer:latest'
